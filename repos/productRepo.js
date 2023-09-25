@@ -1,7 +1,19 @@
 const ProductModel = require("../model/productModel");
 
-const get = (page, pageSize, sort, dir) => {
-  return ProductModel.find()
+const get = (page, pageSize, sort, dir, search) => {
+  let filter = {};
+
+  if (search) {
+    filter = {
+      $or: [
+        { brand: { $regex: search, $options: "i" } },
+        { model: { $regex: search, $options: "i" } },
+        { category: { $regex: search, $options: "i" } },
+      ],
+    };
+  }
+
+  return ProductModel.find(filter, { __v: 0, _id: 0 })
     .sort({ [sort]: dir })
     .skip((page - 1) * pageSize)
     .limit(pageSize);

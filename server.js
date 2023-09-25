@@ -1,6 +1,9 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const morgan = require("morgan");
+const path = require("path");
+const fs = require("fs");
 
 const defaultRouter = require("./routes/defaultRoute");
 const bookRouter = require("./routes/bookRoute");
@@ -16,8 +19,18 @@ mongoose
   .then(() => console.log("DB Connected!"))
   .catch((err) => console.log(err));
 
+const filePath = path.join(__dirname, "logs", "request.log");
+const stream = fs.createWriteStream(filePath, { flags: "a" });
+
+app.use(morgan("combined", { stream: stream }));
+
 app.use(bodyParser.json());
 
 app.use("/", defaultRouter);
 app.use("/books", bookRouter);
 app.use("/products", productRouter);
+
+// Logging
+// Request
+// Application
+// INFO, ERR, WARN, DEBUG

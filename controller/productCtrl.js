@@ -18,11 +18,12 @@ const productRepo = require("../repos/productRepo");
 
 const getAll = async (req, res) => {
   try {
+    const search = req.query.search;
     const sort = req.query.sort;
     const dir = req.query.dir;
     const page = +req.params.page || 1;
     const pageSize = +req.params.size || 10;
-    const products = await productRepo.get(page, pageSize, sort, dir);
+    const products = await productRepo.get(page, pageSize, sort, dir, search);
     res.status(200).json(products);
   } catch (error) {
     console.error(error);
