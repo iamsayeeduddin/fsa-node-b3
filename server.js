@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 
 const defaultRouter = require("./routes/defaultRoute");
 const bookRouter = require("./routes/bookRoute");
+const productRouter = require("./routes/productRoute");
 
 const app = express();
 
@@ -19,3 +20,4 @@ app.use(bodyParser.json());
 
 app.use("/", defaultRouter);
 app.use("/books", bookRouter);
+app.use("/products", productRouter);
