@@ -1,4 +1,5 @@
 const productRepo = require("../repos/productRepo");
+const logger = require("../utils/appLogger");
 
 // Pagination -> 100 -> 10
 // Page Size -> 10
@@ -24,8 +25,10 @@ const getAll = async (req, res) => {
     const page = +req.params.page || 1;
     const pageSize = +req.params.size || 10;
     const products = await productRepo.get(page, pageSize, sort, dir, search);
+    logger.info("Get All Products Request Made");
     res.status(200).json(products);
   } catch (error) {
+    logger.error("Some Error Occured");
     console.error(error);
     res.status(500).send("Internal Server Error");
   }
