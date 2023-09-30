@@ -4,18 +4,20 @@ const mongoose = require("mongoose");
 const morgan = require("morgan");
 const path = require("path");
 const fs = require("fs");
+const dotenv = require("dotenv");
 
 const defaultRouter = require("./routes/defaultRoute");
 const bookRouter = require("./routes/bookRoute");
 const productRouter = require("./routes/productRoute");
 
 const app = express();
+dotenv.config();
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log("Server is up & running!"));
 mongoose
-  .connect("mongodb://127.0.0.1:27017/fsa-b3")
+  .connect(process.env.DB_URL)
   .then(() => console.log("DB Connected!"))
   .catch((err) => console.log(err));
 
