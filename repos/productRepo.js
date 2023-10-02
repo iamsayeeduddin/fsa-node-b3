@@ -13,7 +13,7 @@ const get = (page, pageSize, sort, dir, search) => {
     };
   }
 
-  return ProductModel.find(filter, { __v: 0, _id: 0 })
+  return ProductModel.find(filter, { __v: 0 })
     .sort({ [sort]: dir })
     .skip((page - 1) * pageSize)
     .limit(pageSize);
