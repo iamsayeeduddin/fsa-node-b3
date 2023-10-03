@@ -1,4 +1,5 @@
 const ProductModel = require("../model/productModel");
+const ReviewModel = require("../model/reviewModel");
 
 const get = (page, pageSize, sort, dir, search) => {
   let filter = {};
@@ -25,7 +26,7 @@ const create = (data) => {
 };
 
 const getById = (id) => {
-  const product = ProductModel.find({ _id: id });
+  const product = ProductModel.findOne({ _id: id });
   return product;
 };
 

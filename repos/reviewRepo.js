@@ -9,7 +9,12 @@ const create = (data) => {
   return review.save();
 };
 
+const getById = (id) => {
+  return ReviewModel.find({ productId: id });
+};
+
 module.exports = {
   get,
   create,
+  getById,
 };

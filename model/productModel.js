@@ -7,6 +7,7 @@ const productSchema = new Schema({
   price: { type: Number, required: true },
   inStock: { type: Boolean, default: true },
   category: { type: String, required: true },
+  reviews: { type: String },
 });
 
 module.exports = mongoose.model("products", productSchema);
