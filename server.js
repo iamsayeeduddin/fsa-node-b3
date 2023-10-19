@@ -7,9 +7,11 @@ const fs = require("fs");
 const dotenv = require("dotenv");
 
 const defaultRouter = require("./routes/defaultRoute");
+const userRouter = require("./routes/userRoute");
 const bookRouter = require("./routes/bookRoute");
 const productRouter = require("./routes/productRoute");
 const reviewRouter = require("./routes/reviewRoute");
+const auth = require("./middleware/auth");
 
 const app = express();
 dotenv.config();
@@ -30,10 +32,11 @@ app.use(morgan("combined", { stream: stream }));
 app.use(bodyParser.json());
 
 app.use("/", defaultRouter);
+app.use("/users", userRouter);
 app.use("/books", bookRouter);
-app.use("/products", productRouter);
+app.use(auth.tokenAuth);
 app.use("/reviews", reviewRouter);
-
+app.use("/products", productRouter);
 // Logging
 // Request
 // Application

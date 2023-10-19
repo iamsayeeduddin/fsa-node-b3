@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const productCtrl = require("../controller/productCtrl");
+const auth = require("../middleware/auth");
 
 router.get("/", productCtrl.getAll);
 router.get("/page/:page/size/:size", productCtrl.getAll);
