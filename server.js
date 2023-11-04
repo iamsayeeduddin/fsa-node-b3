@@ -5,6 +5,7 @@ const morgan = require("morgan");
 const path = require("path");
 const fs = require("fs");
 const dotenv = require("dotenv");
+const cors = require("cors");
 
 const defaultRouter = require("./routes/defaultRoute");
 const userRouter = require("./routes/userRoute");
@@ -19,6 +20,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log("Server is up & running!"));
+app.use(cors());
 mongoose
   .connect("mongodb://127.0.0.1:27017/fsa-b3")
   .then(() => console.log("DB Connected!"))
@@ -34,9 +36,9 @@ app.use(bodyParser.json());
 app.use("/", defaultRouter);
 app.use("/users", userRouter);
 app.use("/books", bookRouter);
-app.use(auth.tokenAuth);
 app.use("/reviews", reviewRouter);
 app.use("/products", productRouter);
+app.use(auth.tokenAuth);
 // Logging
 // Request
 // Application
